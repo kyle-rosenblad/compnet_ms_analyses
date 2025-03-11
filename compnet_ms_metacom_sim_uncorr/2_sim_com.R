@@ -1,8 +1,7 @@
 options(scipen=999)
 library(foreach)
 library(doParallel)
-#registerDoParallel(20) # adjust number of cores for different machine
-registerDoParallel(8) # adjust number of cores for different machine
+registerDoParallel(20) # adjust number of cores for different environment
 
 # Set up a sparser version of Thompson et al.'s (2020) parameter grid using just integer powers of 10
 disp_vals <- data.frame(disp_val=c(0.0001, 0.001, 0.01, 0.1))
@@ -113,7 +112,7 @@ res <- foreach(u=1:nrow(param_levels)) %dopar% {
   
   alpha_mat <- 0.05*exp(-comp_dist)
   
-  ##########
+  ########## simulate metacommunity dynamics
   N <- list()
   N_init <- matrix(rpois(lambda=0.5, n=nrow(sp_df)*nrow(unique(env[c("x","y")]))), nrow=nrow(unique(env[c("x","y")])), ncol=nrow(sp_df))
   N[[1]] <- N_init

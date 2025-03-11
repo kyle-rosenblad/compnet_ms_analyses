@@ -11,9 +11,9 @@ trees <- readRDS("data2.RDS")
 trees <- subset(trees, LAT_LON_SUBP%in%sites$LAT_LON_SUBP)
 trees$binomial <- paste(trees$GENUS, trees$SPECIES, sep=" ")
 
+# get species dataframe for fia data
 species <- unique(trees[c("GENUS", "SPECIES", "SPCD")])
 species$binomial <- paste(species$GENUS, species$SPECIES, sep=" ")
-
 species <- merge(species, try_species, by.x="binomial", by.y="AccSpeciesName",
                  all.x=TRUE, all.y=FALSE, sort=FALSE)
 
@@ -63,27 +63,25 @@ sort(nf$FORESTNAME)
 sf_use_s2(FALSE)
 nf2 <- subset(nf, FORESTNAME=="Payette National Forest")
 trees2 <- st_filter(trees, nf2)
-
 sites <- subset(sites, LAT_LON%in%trees2$LAT_LON)
 trees2$binomial <- paste(trees2$GENUS, trees2$SPECIES, sep=" ")
 species <- subset(species, SPCD%in%trees2$SPCD)
 species <- merge(species, trydata2, by="AccSpeciesID",
                  all.x=TRUE, all.y=FALSE, sort=FALSE)
-
 trees2 <- merge(trees2, species[c("binomial", "AccSpeciesID")], by="binomial",
                 all.x=TRUE, all.y=FALSE, sort=FALSE)
-
 presabs <- matrix(NA, nrow=length(unique(sites$LAT_LON_SUBP)), ncol=nrow(species))
 rownames(presabs) <- unique(sites$LAT_LON_SUBP)
 colnames(presabs) <- species$SPCD
-
 trees2 <- subset(trees2, INVYR==survey_2_year)
 
+# set up presence-absence matrix for compnet analysis
 for(i in 1:ncol(presabs)){
   sites_tmp <- unique(subset(trees2, SPCD==colnames(presabs)[i])$LAT_LON_SUBP)
   presabs[,i] <- as.numeric(rownames(presabs)%in%sites_tmp)
 }
 
+# set up trait matrix for compnet analysis
 traitdata <- species[c("SPCD", "binomial", "ht", "wd")]
 rownames(traitdata) <- traitdata$SPCD
 traitdata$loght <- log10(traitdata$ht)

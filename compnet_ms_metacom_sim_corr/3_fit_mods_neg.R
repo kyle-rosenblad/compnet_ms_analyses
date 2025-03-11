@@ -1,7 +1,7 @@
 options(scipen=999)
 library(foreach)
 library(doParallel)
-registerDoParallel(cores=20)
+registerDoParallel(cores=20) # adjust number of cores for different environment
 
 # Set up Thompson et al.'s (2020) parameter space
 param_levels <- readRDS("param_levels.RDS")

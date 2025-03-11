@@ -1,9 +1,9 @@
 # This script runs the metacommunity simulations described in Thompson et al. (2020) Ecol. Lett.
-# I am rebuilding from scratch using the equations described in the paper.
+# I rebuilt them in R based on the equations in the manuscript and the provided Julia code.
 options(scipen=999)
 library(foreach)
 library(doParallel)
-registerDoParallel(3) # adjust number of cores for different machine
+registerDoParallel(6) # adjust number of cores for different environment. This script in particular draws heavily on RAM, and decreasing this parameter can help. Errors regarding "bad_alloc" indicate RAM problems.
 
 set.seed(12078)
 foreach(j=1:30) %dopar% {
@@ -44,7 +44,7 @@ foreach(j=1:30) %dopar% {
     env <- rbind(tmp, env)
   }
   
-  # scale and center environmental variable:
+  # scale environmental variable:
   env$envx_t <- scale(env$envx_t, center=TRUE)
   
   # Generate dispersal matrix:
