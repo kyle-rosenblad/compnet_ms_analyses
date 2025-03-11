@@ -3,11 +3,13 @@ Analyses accompanying Rosenblad (2025) compnet: Bayesian dyadic regression revea
 
 There are five subdirectories that each correspond to a distinct analysis.
 
+Within each subdirectory, scripts may have numbers at the beginnings of the file names. If they do, this means scripts with earlier numbers need to be run before those with later numbers. e.g., 1_myscript.R must be run before 2_myotherscript.R.
+
 compnet_ms_example runs the toy example shown in Box 1 with compnet's built-in example data.
 
 compnet_ms_fia runs the empirical case study of trees in Payette National Forest.
 
-compnet_ms_metacom_sim_uncorr runs the metacommunity simulations, and accompanying data analyses, with uncorrelated species traits.
+compnet_ms_metacom_sim_uncorr runs the metacommunity simulations, and accompanying data analyses, with uncorrelated species traits. This generates the spatiotemporal landscapes for the correlated scenario as well, so run this one first.
 
 compnet_ms_metacom_sim_corr runs the metacommunity simulations, and accompanying data analyses, with correlated species traits.
 
