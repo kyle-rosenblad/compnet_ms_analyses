@@ -17,4 +17,6 @@ compnet_ms_metacom_sim_summary produces the summary figure encompassing both sim
 
 The two metacommunity simulation analyses require a lot of computing resources. I recommend running them on a cluster. You may need to adjust the number of processor cores if you don't have enough RAM and/or enough cores (see comments near top of each script regarding how to do this).
 
+Each directory also contains all objects output by all scripts (mostly .RDS and .png files). Thus, if you want to run part, but not all, of the analyses, you can. For example, if you want to run the metacommunity simulations, but you don't want to have to rerun the scripts that generate the spatiotemporal landscapes, you can just start with the scripts that have a 2 at the beginning of the filename, instead of starting with 1_sim_env.R. Or if you just want to rerun the analyses without running the simulations, you can start with the "3" scripts.
+
 Please contact me at kyle_rosenblad@berkeley.edu with any questions.
