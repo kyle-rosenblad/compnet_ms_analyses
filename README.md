@@ -1,7 +1,7 @@
 # compnet_ms_analyses
 Analyses accompanying Rosenblad (2025) compnet: Bayesian dyadic regression reveals hidden signals of interspecific competition in observational data
 
-There are five subdirectories that each correspond to a distinct analysis:
+There are five subdirectories that each correspond to a distinct analysis.
 
 compnet_ms_example runs the toy example shown in Box 1 with compnet's built-in example data.
 
