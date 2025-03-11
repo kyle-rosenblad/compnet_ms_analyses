@@ -63,15 +63,11 @@ for(i in 1:nrow(nmpa_methods)){
   pval <- paste("p", nmpa_methods[i, "methodname"], sep="_")
   restmp <- c(as.matrix(param_levels_pos[pval]))
   nmpa_methods[i, "truepos"] <- sum(restmp<0.05 & !is.na(restmp))/length(restmp)
-  nmpa_methods[i, "truepos_alt"] <- mean(na.exclude(restmp)<0.05)
-  nmpa_methods[i, "truepos_alt_n"] <- length(na.exclude(restmp))/length(restmp)
 }
 for(i in 1:nrow(nmpa_methods)){
   pval <- paste("p", nmpa_methods[i, "methodname"], "neg", sep="_")
   restmp <- c(as.matrix(param_levels_neg[pval]))
   nmpa_methods[i, "falsepos"] <- sum(restmp<0.05 | is.na(restmp))/length(restmp)
-  nmpa_methods[i, "falsepos_alt"] <- mean(na.exclude(restmp)<0.05)
-  nmpa_methods[i, "falsepos_alt_n"] <- length(na.exclude(restmp))/length(restmp)
 }
 nmpa_methods
 
@@ -79,28 +75,11 @@ methods <- nmpa_methods
 methods[nrow(methods)+1, "methodname"] <- "compnet"
 methods[nrow(methods), "truepos"] <- mean(param_levels_pos$compnet>0.95)
 methods[nrow(methods), "falsepos"] <- mean(param_levels_neg$compnet_neg>0.95)
-methods[nrow(methods), "truepos_alt"] <- mean(param_levels_pos$compnet>0.95)
-methods[nrow(methods), "falsepos_alt"] <- mean(param_levels_neg$compnet_neg>0.95)
-methods[nrow(methods), "truepos_alt_n"] <- 1
-methods[nrow(methods), "falsepos_alt_n"] <- 1
 methods[nrow(methods), "metric"] <- "compnet"
 methods[nrow(methods), "null"] <- "compnet"
 methods$null <- factor(methods$null, levels=c("compnet", "c1", "c2", "c3", "c4", "c5", "t1", "t3", "range"))
 
-methods$replication <- (methods$truepos_alt_n+methods$falsepos_alt_n)/2
-
 ggplot(methods, aes(x=falsepos, y=truepos, color=null, fill=null, shape=metric))+
-  geom_point(size=3)+
-  geom_vline(xintercept=0.05, lty="dashed")+
-  scale_shape_manual(values=c(21:24), name="Metric")+
-  scale_fill_tableau(name="Null Model")+
-  scale_color_tableau(name="Null Model")+
-  xlab("False Detection Rate")+
-  ylab("True Detection Rate")+
-  theme_bw()+
-  theme(aspect.ratio=1)
-
-ggplot(methods, aes(x=falsepos_alt, y=truepos, color=null, fill=null, shape=metric))+
   geom_point(size=3)+
   geom_vline(xintercept=0.05, lty="dashed")+
   scale_shape_manual(values=c(21:24), name="Metric")+
