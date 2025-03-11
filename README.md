@@ -14,3 +14,5 @@ compnet_ms_metacom_sim_corr runs the metacommunity simulations, and accompanying
 compnet_ms_metacom_sim_summary produces the summary figure encompassing both simulation scenarios. The script in this directory must be run after the above two analyses have run.
 
 The two metacommunity simulation analyses require a lot of computing resources. I recommend running them on a cluster. You may need to adjust the number of processor cores if you don't have enough RAM and/or enough cores (see comments near top of each script regarding how to do this).
+
+Please contact me at kyle_rosenblad@berkeley.edu with any questions.
